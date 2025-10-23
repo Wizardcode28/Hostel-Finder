@@ -1,0 +1,240 @@
+/* General Page Setup */
+body {
+    background-color: #f4f7fa; /* Very light blue-grey background */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container for the Form */
+.hostel-registration-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    /* INCREASED WIDTH */
+    max-width: 700px; 
+    margin: 0 auto;
+}
+
+/* Form Title */
+.hostel-registration-container h2 {
+    color: #004c99; /* Deep blue title */
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.5px;
+}
+
+/* Form Layout */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increased space between form sections/groups */
+}
+
+/* Utility Class for a Two-Column Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default single column for mobile */
+    gap: 15px 25px;
+}
+
+/* Apply two columns for wider screens */
+@media (min-width: 600px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Full Width Fields (for fields like description, address) */
+.full-width {
+    grid-column: 1 / -1; /* Spans across all columns */
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 4px;
+    display: block; 
+    font-size: 0.95rem;
+}
+
+/* Input Group Wrapper */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inputs and Select Fields */
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dcdfe6;
+    border-radius: 8px;
+    box-sizing: border-box; 
+    font-size: 1rem;
+    color: #343a40;
+    background-color: #fafafa;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    min-height: 40px; /* Ensure consistent height */
+}
+
+/* Focus State for Inputs */
+input:focus,
+select:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+    background-color: #fff;
+    outline: none; 
+}
+
+/* Select Box custom style (improves look) */
+select {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23343a40" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+/* Location Group/Hint Text */
+.hostel-registration-container p {
+    font-size: 0.85rem;
+    color: #6c757d;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.location-info {
+    font-size: 0.95rem;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    color: #007bff;
+    background-color: #e9f5ff;
+}
+
+/* Get Location Button (using style props, but better to integrate with CSS) */
+.location-group button {
+    /* Override inline styles for consistency */
+    flex-grow: 1;
+    padding: 12px 15px !important; 
+    background-color: #28a745 !important; /* Green for success action */
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.location-group button:hover {
+    background-color: #218838 !important;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    background-color: #007bff; /* Primary blue for submission */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 25px;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Placeholder styles */
+::placeholder {
+    color: #b0b5bd;
+    opacity: 1; 
+}
+
+/* ----------------------------------- */
+/* --- FACILITIES CHECKLIST STYLES --- */
+/* ----------------------------------- */
+.facilities-section {
+    padding-top: 25px;
+    margin-top: 20px;
+    border-top: 2px solid #e9ecef; 
+}
+
+.section-title {
+    font-size: 1.4rem; 
+    font-weight: 700; 
+    color: #1a73e8; 
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.facilities-grid {
+    display: grid;
+    /* 2 columns on small, 3 on medium, 4 on large */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+}
+
+@media (min-width: 480px) { /* Small/Tablet */
+    .facilities-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 768px) { /* Desktop */
+    .facilities-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.facility-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center text within item */
+    text-align: center;
+    padding: 10px 5px; 
+    background-color: #f7f9fc; 
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    color: #495057; 
+    cursor: pointer;
+    font-size: 0.85rem; 
+    transition: all 0.2s;
+}
+
+.facility-item:hover {
+    background-color: #eef4fe; 
+    border-color: #a3c4f3; 
+}
+
+/* Style for the checkbox input itself */
+.facility-checkbox {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-right: 8px;
+    /* Custom styling for the checkmark */
+    accent-color: #1a73e8; 
+}
+
+/* Enhanced style for checked label background */
+.facility-item:has(input[type="checkbox"]:checked) {
+    background-color: #e6f7ff; /* Light blue tint */
+    border-color: #1a73e8; /* Solid blue border */
+    font-weight: 600;
+    color: #1a73e8;
+}
