@@ -30,7 +30,7 @@ const HomePage = () => {
             </button>
             <button
               className="btn hostel-btn"
-              onClick= {()=> navigate("/hostel")}
+              onClick= {()=> navigate("/signup")}
             >
               🏘️ I'm a Hostel Owner
             </button>

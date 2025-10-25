@@ -1,0 +1,162 @@
+/* --- GLOBAL RESET & BASE LAYOUT --- */
+.owner-signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+    /* Enhanced, slightly deeper gradient for better contrast */
+    background: linear-gradient(135deg, #4f46e5 0%, #a78bfa 100%); 
+    font-family: 'Inter', system-ui, sans-serif; /* Modern font stack */
+    color: #1a202c;
+    /* FIX: Added border-box to contain padding within height limits */
+    box-sizing: border-box; 
+    width: 100%;
+}
+
+/* FIX: Added border-box to body to ensure min-height: 100vh works globally */
+body {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+/* --- CARD STYLING (Glassmorphism + Elevation) --- */
+.signup-card {
+    width: 100%;
+    max-width: 420px; /* Slightly wider for better desktop feel */
+    padding: 40px; /* Increased padding */
+    
+    /* Enhanced Glassmorphism effect */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px); /* Stronger blur effect */
+    -webkit-backdrop-filter: blur(12px);
+    
+    border-radius: 20px; /* More modern, rounder corners */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Stronger, deeper shadow */
+    border: 1px solid rgba(255, 255, 255, 0.7); /* Subtle white border accent */
+    /* FIX: Added flex-shrink to prevent card from being squeezed too much */
+    flex-shrink: 0; 
+}
+
+/* --- TYPOGRAPHY --- */
+.signup-title {
+    font-size: 1.8rem; /* Slightly larger title */
+    font-weight: 800; /* Extra bold */
+    color: #1a202c;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.5px; /* Tighter spacing for modern look */
+}
+.signup-subtitle {
+    font-size: 0.95rem;
+    color: #4a5568;
+    margin-bottom: 25px; /* Increased spacing */
+}
+
+/* --- FORM & INPUTS --- */
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; 
+}
+
+.input-label {
+    display: block;
+    font-size: 0.9rem; /* Slightly larger label text */
+    font-weight: 600; /* Bolder label text */
+    color: #3f51b5; /* Deeper blue for contrast */
+    margin-bottom: 6px;
+}
+
+.signup-input {
+    width: 100%;
+    padding: 12px 14px; /* Increased padding */
+    border: 1px solid #dcdcdc; /* Lighter border */
+    border-radius: 10px; /* Rounder input corners */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08); /* More noticeable inner shadow */
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 1.05rem;
+}
+.signup-input:focus {
+    border-color: #6366F1;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.4); /* Stronger glow focus effect */
+    outline: none;
+}
+
+/* --- ERROR MESSAGE --- */
+.error-message {
+    padding: 12px;
+    font-size: 0.9rem;
+    color: #c53030; /* Darker red for better contrast */
+    background-color: #ffeaea;
+    border: 1px solid #fc8181;
+    border-radius: 10px;
+    text-align: left;
+    font-weight: 600;
+}
+
+/* --- SUBMIT BUTTON --- */
+.signup-btn {
+    width: 100%;
+    padding: 14px 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700; /* Bolder text */
+    color: white;
+    background-color: #4f46e5; /* Indigo */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4); /* Stronger shadow */
+    margin-top: 0px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.signup-btn:hover:not(:disabled) {
+    background-color: #4338ca;
+    transform: translateY(-2px); /* Subtle lift on hover */
+    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.6);
+}
+.btn-disabled {
+    background-color: #b0b8c4; /* Light grey disabled state */
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* --- LOGIN LINK --- */
+.login-link-container {
+    text-align: center;
+    margin-top: 15px;
+}
+.login-link-text {
+    font-size: 0.9rem;
+    color: #4a5568;
+}
+.login-link {
+    font-weight: 700; /* Bolder link text */
+    color: #6366F1;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 5px;
+    transition: color 0.2s;
+}
+.login-link:hover {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+/* --- RESPONSIVE ADJUSTMENTS --- */
+@media (max-width: 480px) {
+    .signup-card {
+        padding: 25px;
+        margin: 0 10px;
+    }
+    .signup-title {
+        font-size: 1.6rem;
+    }
+    .signup-btn {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}

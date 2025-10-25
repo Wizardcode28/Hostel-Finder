@@ -1,23 +1,19 @@
 /* ------------------------------------------- */
 /* --- 1. Base Container and Page Layout --- */
+/* (Base container styles omitted for brevity, assuming they are correct) */
 /* ------------------------------------------- */
 
-/* The main container for the entire component */
 .finder-container {
-    /* Ensures the component spans the full viewport */
     min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    
-    /* Vibrant, smooth background gradient */
-    background: linear-gradient(135deg, #4F77AA, #8D4FAA);
+    background: linear-gradient(135deg, #183b67, #652882);
     color: #fff;
     font-family: 'Inter', sans-serif;
     position: relative;
-    overflow: hidden; /* Contains any absolute positioning */
+    overflow-x: hidden; 
 }
 
-/* Optional: Subtle background pattern for visual interest */
 .finder-container::before {
     content: '';
     position: absolute;
@@ -30,16 +26,12 @@
     pointer-events: none;
 }
 
-
-/* ------------------------------------------- */
-/* --- 2. Header Styling --- */
-/* ------------------------------------------- */
-
 .finder-header {
     background: rgba(255, 255, 255, 0.15);
     padding: 1.5rem 2rem;
     text-align: center;
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -49,34 +41,27 @@
     font-weight: 700;
     letter-spacing: 1px;
     margin: 0;
+    color: white; 
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
-
-
-
-/* ------------------------------------------- */
-/* --- 3. Main Content and Glass Box --- */
-/* ------------------------------------------- */
 
 .finder-main {
     flex-grow: 1;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 2rem;
+    width: 100%;
 }
 
 .finder-content-box {
-    max-width: 550px;
-    width: 90%;
-    
-    /* Glassmorphism Effect */
+    max-width: 800px; 
+    width: 95%; 
     background: rgba(255, 255, 255, 0.1); 
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    
     padding: 40px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -97,11 +82,6 @@
     color: #f0f0f0;
 }
 
-
-/* ------------------------------------------- */
-/* --- 4. Form and Button Styling --- */
-/* ------------------------------------------- */
-
 .location-form {
     display: flex;
     flex-direction: column;
@@ -109,16 +89,6 @@
     margin-top: 25px;
 }
 
-/* Location Status Display */
-.location-status-display {
-    padding: 10px 0;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #e0f7fa; /* Light cyan text */
-    min-height: 40px;
-}
-
-/* Shared Button Styles */
 .location-btn, .search-btn {
     padding: 15px 25px;
     border: none;
@@ -130,289 +100,242 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Get Location Button */
 .location-btn {
-    background-color: #3f6ad1; /* Deep Blue */
+    background-color: #0088A1; 
     color: white;
 }
 
-.location-btn:hover:not(:disabled) {
-    background-color: #5d8af1;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.location-btn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* Search Button */
 .search-btn {
-    background-color: #00b894; /* Vivid Green/Teal */
+    background-color: #4CAF50; 
     color: white;
-}
-
-.search-btn:hover:not(:disabled) {
-    background-color: #00cc9a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.search-btn:disabled {
-    background-color: #555;
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-/* Disclaimer text */
-.disclaimer {
-    margin-top: 25px;
-    margin-bottom: 30px;
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 .finder-results-area {
+    max-width: 800px; 
     width: 100%;
-    max-width: 550px; 
-    padding: 0 1rem;
+    padding: 0; 
+    margin-top: 2rem;
 }
-.result-list-container h3 {
+
+.results-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
     color: #fff;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    text-align: left; 
+    padding-left: 10px;
 }
 
 /* ------------------------------------------- */
-/* --- 5. Responsive Design --- */
+/* --- 6. HOSTEL CARD STYLES (Optimized) --- */
 /* ------------------------------------------- */
 
-@media (max-width: 600px) {
-    .finder-header h1 {
-        font-size: 1.4rem;
-    }
-    .finder-content-box {
-        padding: 25px 20px;
-    }
-    .finder-content-box h2 {
-        font-size: 1.6rem;
-    }
-    .finder-content-box p {
-        font-size: 1rem;
-    }
-    .location-btn, .search-btn {
-        padding: 12px;
-        font-size: 1rem;
-    }
-}
-
-/* ------------------------------------------- */
-/* --- 1. CARD BASE AND HOVER IMPROVEMENTS --- */
-/* ------------------------------------------- */
 .hostel-card-improved {
-    /* Base style remains similar */
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem; 
     background: #ffffff;
-    border-radius: 16px; /* Slightly rounder edges */
-    padding: 1.25rem; /* Increased padding */
+    border-radius: 16px; 
+    padding: 1.5rem; 
     margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer initial shadow */
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    color: #333;
-    /* Stronger accent border on the left */
-    border-left: 6px solid #8D4FAA; /* Deeper Purple Accent */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Stronger elevation */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+    color: #1a202c;
+    border-left: 8px solid #652882; /* Purple Accent */
+    width: 100%;
 }
 
 .hostel-card-improved:hover {
-    transform: translateY(-5px); /* More noticeable lift */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Stronger hover shadow */
-    z-index: 10; /* Ensures it sits above others */
+    transform: translateY(-3px); /* Subtle lift */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); 
 }
 
-/* ------------------------------------------- */
-/* --- 2. IMAGE, TITLE, RATING --- */
-/* ------------------------------------------- */
-
+/* Image Placeholder */
 .hostel-image-placeholder {
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(145deg, #f0f4ff, #e9e9e9);
+    width: 120px; /* Slightly wider image block for better impact */
+    height: 120px;
+    background: linear-gradient(145deg, #f0f4ff, #d9ebf5);
     border-radius: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2rem; /* Keep for the '🏠' icon if no image */
+    font-size: 3rem; /* Larger icon fallback */
     flex-shrink: 0;
-    border: 1px solid #dcdcdc;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
-    
-    /* 🚀 CRITICAL FIXES BELOW 🚀 */
-    overflow: hidden; /* Ensures anything too big inside is clipped */
-    position: relative; /* Essential for absolute positioning of the image if needed */
+    overflow: hidden; 
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05); /* Inner border for image */
+}
+.hostel-image-placeholder img {
+    width: 100%;       
+    height: 100%;      
+    object-fit: cover; 
 }
 
-/* 🚀 NEW RULE: Style for the actual <img> tag inside the placeholder */
-.hostel-image-placeholder img {
-    width: 100%;       /* Make the image fill the container's width */
-    height: 100%;      /* Make the image fill the container's height */
-    object-fit: cover; /* CRITICAL: Crops the image to fill the space without distortion */
-    border-radius: 12px; /* Match container border-radius */
-    display: block;    /* Removes extra space below inline images */
+/* Main Details Area */
+.hostel-details-main {
+    flex-grow: 1;
+    text-align: left;
+    padding-right: 1rem; /* Space before summary block */
 }
 
 .hostel-name-title {
-    font-size: 1.4rem; /* Slightly larger title */
-    font-weight: 800;
-    color: #3f6ad1; /* Primary Blue */
-    margin: 0 0 0.1rem 0;
-    line-height: 1.2;
+    font-size: 1.6rem; /* Prominent Name */
+    font-weight: 900;
+    color: #183b67; /* Dark Blue */
+    margin: 0 0 0.2rem 0;
+    line-height: 1.1;
 }
 
 .hostel-rating {
-    /* Clean layout for stars and review count */
-    display: flex;
-    align-items: center;
     font-size: 0.95rem;
     color: #f39c12; /* Gold for stars */
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
 }
 
 .review-count {
     font-size: 0.85rem;
-    color: #95a5a6; /* Subtle grey for count */
+    color: #64748b; /* Slate Gray */
     font-weight: 500;
     margin-left: 0.5rem;
 }
 
-/* ------------------------------------------- */
-/* --- 3. AMENITIES AND SUMMARY --- */
-/* ------------------------------------------- */
-
 p.hostel-desc-summary {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    color: #475569;
+    margin-bottom: 1rem;
+    line-height: 1.4;
 }
 
+/* Amenities List */
+.hostel-amenities-list {
+    margin-top: 0.5rem;
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.5rem; 
+}
 .amenity-tag {
-    /* Tags are now slightly smaller and more rounded */
-    background: #e9efff;
-    color: #3f6ad1;
-    padding: 0.15rem 0.6rem;
-    border-radius: 12px;
-    font-size: 0.7rem; /* Smaller font */
+    background: #e6f7ff;
+    color: #183b67;
+    padding: 0.3rem 0.8rem; /* Slightly larger tags */
+    border-radius: 20px; /* Pill shape */
+    font-size: 0.75rem; 
     font-weight: 600;
-    margin-right: 0.5rem;
-    margin-bottom: 0.3rem;
-    text-transform: capitalize;
 }
 
 /* ------------------------------------------- */
-/* --- 4. PRICE & DISTANCE BLOCK --- */
+/* --- 7. RIGHT SUMMARY BLOCK (Price/Distance/Action) --- */
 /* ------------------------------------------- */
+
+.hostel-summary-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-shrink: 0; 
+    width: 200px; /* Increased fixed width for better price display */
+    text-align: right;
+    padding-left: 1rem; /* Separator padding */
+    border-left: 1px solid #f0f0f0; /* Subtle vertical separator */
+}
 
 .distance-block {
-    text-align: right;
-    margin-bottom: 0.75rem;
-    padding: 5px 10px;
-    border-radius: 6px;
-    /* Subtle gradient background for visual impact */
-    background: linear-gradient(90deg, #e6fff7, #d4f8f4); 
+    padding: 8px 12px; 
+    background: linear-gradient(90deg, #d4f8f4, #e6fff7); 
     border: 1px solid #00b894;
+    border-radius: 8px;
+    width: 100%; 
+    box-shadow: 0 1px 3px rgba(0, 184, 148, 0.3); /* Teal shadow */
 }
 
 .distance-label {
-    font-size: 0.75rem;
-    color: #00896b; /* Darker teal label */
-    font-weight: 600;
+    font-size: 0.8rem;
+    color: #00896b; 
+    font-weight: 700;
     text-transform: uppercase;
 }
 
 .distance-value {
-    display: block;
-    font-size: 1.35rem; /* Larger distance number */
-    font-weight: 900; /* Extra bold */
+    font-size: 1.6rem; /* Prominent distance */
+    font-weight: 900; 
     color: #00b894;
 }
 
+.price-block {
+    width: 100%;
+    margin-top: 1rem;
+}
+
 .price-value {
-    font-size: 1.6rem; /* Price is the largest element */
-    font-weight: 800;
-    color: #1a1a1a;
+    font-size: 2rem; /* Price is the largest element */
+    font-weight: 900;
+    color: #333;
     display: block;
-    margin-top: 0.5rem;
+    line-height: 1;
 }
 
 .price-per {
-    font-size: 0.8rem;
-    color: #999;
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
 }
 
-@media (max-width: 550px) {
-    /* Card layout switches from row (desktop) to column (mobile) */
+.btn-view-details {
+    width: 100%;
+    padding: 10px 12px;
+    background-color: #f39c12; /* Gold/Orange Action Color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.1s;
+    box-shadow: 0 3px 6px rgba(243, 156, 18, 0.4);
+}
+
+.btn-view-details:hover {
+    background-color: #e67e22;
+    transform: translateY(-1px);
+}
+
+/* ------------------------------------------- */
+/* --- 8. RESPONSIVE BREAKPOINT (Mobile) --- */
+/* ------------------------------------------- */
+
+@media (max-width: 750px) {
     .hostel-card-improved {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1rem; /* Slightly reduced padding */
+        gap: 1.5rem;
+        padding: 1rem;
     }
     
-    /* Image Placeholder should look standard */
     .hostel-image-placeholder {
-        width: 100%; /* Allow image container to take full width */
-        height: 150px; /* Give it a decent height */
-        /* Flex centered content inside for the 🏠 icon */
+        width: 100%; /* Full width image container */
+        height: 150px; 
+        order: -1; /* Place image at the top */
     }
     
-    .hostel-image-placeholder img {
-        height: 100%;
-    }
-
-    .hostel-details-main {
-        width: 100%;
-    }
-
-    /* Summary info block switches to horizontal layout */
     .hostel-summary-info {
         flex-direction: row; 
         justify-content: space-between; 
-        align-items: flex-start;
+        align-items: center; 
         width: 100%;
         margin-top: 0.5rem;
         padding-top: 0.5rem;
-        border-top: 1px dashed #eee;
+        border-top: 1px solid #f0f0f0;
+        border-left: none; /* Remove vertical separator on mobile */
     }
     
-    /* Re-align distance block to the left on mobile */
     .distance-block {
         text-align: left;
-        width: auto;
-        margin-bottom: 0;
+        width: 45%;
         background: none;
         border: none;
         padding: 0;
+        box-shadow: none;
     }
 
     .price-block {
         text-align: right;
-        width: auto;
+        width: 50%;
     }
-    
-    .price-value {
-        font-size: 1.4rem;
-        margin-top: 0;
-    }
-    
-    /* Move button to a separate line below the main summary */
+
     .btn-view-details {
-        position: static;
-        width: 100%;
-        margin-top: 1rem;
+        display: none; /* Hide button from summary row on mobile */
     }
 }

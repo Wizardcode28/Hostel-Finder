@@ -58,8 +58,8 @@ const Student = () => {
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 0 
+        timeout: 15000,
+        maximumAge: 10000 
       }
     );
   };
@@ -75,7 +75,7 @@ const Student = () => {
     latitude: parseFloat(studentData.latitude)
    }
     try {
-      const response= await fetch("http://localhost:8000/api/v1/hostel/search",{
+      const response= await fetch(`${import.meta.env.VITE_API_BASE_URL}/hostel/search`,{
         method:"POST",
         headers:{ "Content-Type": "application/json"},
         body: JSON.stringify(studentPayload)
@@ -211,7 +211,7 @@ const renderResults = () => {
               Start Hostel Search
             </button>
           </form>
-          
+          <br />
           <div className="disclaimer">
             We only use your location data once for the search and do not track your movement.
           </div>

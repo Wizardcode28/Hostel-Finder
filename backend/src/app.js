@@ -16,5 +16,7 @@ app.use(cookieParser())
 
 import hostelRouter from "./routes/hostel.routes.js"
 app.use("/api/v1/hostel",hostelRouter)
+import ownerRouter from "./routes/owner.routes.js"
+app.use("/api/v1/owner",ownerRouter)
 
 export {app}

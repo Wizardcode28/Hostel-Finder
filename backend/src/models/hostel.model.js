@@ -5,14 +5,13 @@ const hostelSchema= new mongoose.Schema(
         owner:{
             type: mongoose.Schema.Types.ObjectId,
             ref: "HostelOwner",
-            // required: true
-        },
+            required: true
+        },  
   
         name:{
             type: String,
             required:true,
-            lowercase: true,
-            // unique: true,
+            unique: true,
             trim: true
         },
 
@@ -25,7 +24,7 @@ const hostelSchema= new mongoose.Schema(
 
         phone:{
             type: String,
-            // required: true,
+            required: true,
             trim: true,
             maxlength: 20
         },
@@ -34,9 +33,9 @@ const hostelSchema= new mongoose.Schema(
             type: String,
             required: true,
             lowercase: true,
-            // unique: true,
+            unique: true,
             trim: true,
-            // match: [/.+@.+\..+/, 'Please fill a valid email address'] ,
+            match: [/.+@.+\..+/, 'Please fill a valid email address'] ,
             maxlength: 50
         },
 
@@ -133,7 +132,6 @@ const hostelSchema= new mongoose.Schema(
     {timestamps:true}
 )
 
-hostelSchema.index({name:1})
 hostelSchema.index({city:1})
 hostelSchema.index({price:1})
 hostelSchema.index({gender:1})

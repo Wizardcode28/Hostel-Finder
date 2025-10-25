@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate for the back button
+import "./HostelDetails.css"
 
 const HostelDetails = () => {
     // 1. Get location state passed via useNavigate
@@ -8,7 +9,8 @@ const HostelDetails = () => {
 
     // 2. Safely retrieve the hostel object, falling back to an empty object if state is lost (e.g., refresh)
     const hostel = location.state?.hostel || {}; 
-
+    console.log(hostel);
+    
     // Helper function to format strings
     const capitalize = (s) => {
         if (typeof s !== 'string') return s;
@@ -139,7 +141,7 @@ const HostelDetails = () => {
                     {/* Placeholder for future Map View */}
                     <div className="map-placeholder">
                         Map View Coming Soon!
-                        <p className="text-sm mt-2 text-gray-500">Hostel location at {hostel.location?.coordinates?.[1]}, {hostel.location.coordinates[0]}</p>
+                        <p className="text-sm mt-2 text-gray-500">Hostel location at {hostel.location?.coordinates?.[1]}, {hostel.location?.coordinates?.[0]}</p>
                     </div>
                 </div>
 

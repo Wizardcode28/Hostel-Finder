@@ -11,6 +11,7 @@ const geocodeAddress = asyncHandler(async (req,res)=>{
     // it replaces special keywords with their url-safe encodings, space- %
 
     // nominatim api endpoint
+    console.log(query)
     const apiUrl= `https://nominatim.openstreetmap.org/search?q=${query}&format=json&limit=1`
 
     const response = await fetch(apiUrl,{
@@ -19,7 +20,6 @@ const geocodeAddress = asyncHandler(async (req,res)=>{
         }
     })
     if(!response.ok) throw new ApiError(400,"Geocoding service failed")
-    console.log(response)
     const data= await response.json()
     console.log(data)
     if(!data || data.length===0) throw new ApiError(400,"Error in encoding address")

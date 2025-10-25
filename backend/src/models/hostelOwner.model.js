@@ -30,8 +30,6 @@ const hostelOwnerSchema= new mongoose.Schema(
     {timestamps: true}
 )
 
-hostelOwnerSchema.index({email:1})
-
 // methods
 hostelOwnerSchema.pre("save",async function(next){
     if(!this.isModified("password")) return next()

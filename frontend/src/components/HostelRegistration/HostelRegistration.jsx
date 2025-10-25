@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import "./HostelRegistration.css"
+import { useNavigate } from 'react-router-dom'
 
 const HostelRegistration = () => {
+  const navigate= useNavigate()
+  const accessToken = localStorage.getItem('accessToken') || ''; 
+  useEffect(() => {
+    if(!accessToken || accessToken==='') {
+    navigate('/login')
+  }
+  }, [accessToken,navigate])
+  
 
-  // function to convert address to longitude and latitude using Nominatim OpenStreetMap API
 
   const [formData, setformData] = useState({
     name: '',
@@ -60,7 +68,8 @@ const HostelRegistration = () => {
             alert("Please fill all required fields- address, city, state or Get Current Location")
             return
           }
-          const response= await fetch("http://localhost:8000/api/v1/hostel/encode",{
+
+          const response= await fetch(`${import.meta.env.VITE_API_BASE_URL}/hostel/encode`,{
             method:"POST",
             headers:{
               "Content-Type":"application/json"
@@ -100,17 +109,24 @@ const HostelRegistration = () => {
           }
         }
         try{
-          const response= await fetch("http://localhost:8000/api/v1/hostel/register",{
+          const response= await fetch(`${import.meta.env.VITE_API_BASE_URL}/hostel/register`,{
             method: "POST",
+            credentials: "include",
             headers:{
+              "Authorization": `Bearer ${accessToken}`,
               "Content-Type": "application/json"
             },
             body: JSON.stringify(payload)
           })
+          if(response.status===401){
+            alert("Onwer not logged in. Redirecting to login.")
+            navigate('/login')
+          }
           const data= await response.json()
           console.log("Form submitted successfully")
           console.log("Server Response: ",data)
           alert("Form submitted successfully")
+          navigate('/dashboard')
         }
         catch(err){
           console.log("Error while submitting form: ",err)
@@ -141,7 +157,7 @@ const HostelRegistration = () => {
           }
         }))
         console.log(`Location set: Lat=${lat}, Lng=${lng}`);
-      },
+      },  
         (error)=>{
           let message="Failed to get location."
           if(error.code===error.PERMISSION_DENIED) message="Location permission denied. Please allow access or enter manually."
@@ -152,7 +168,7 @@ const HostelRegistration = () => {
         {
           // options for getCurrentPosition
           enableHighAccuracy: true,
-          timeout: 10000,
+          timeout: 15000,
           maximumAge: 0 // don't use cached position
         }
       )}
@@ -168,39 +184,39 @@ const HostelRegistration = () => {
       <h2>Hostel Application Form</h2>
       <form onSubmit={handleSubmit} onKeyDown={handleKeyPress}>
         <label htmlFor="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter hostel name" onChange={handleChange} value={formData.name} />
+        <input type="text" id="name" name="name" required placeholder="Enter hostel name" onChange={handleChange} value={formData.name} />
 
         <label htmlFor="desc">Description (Max Length):1000</label>
-        <input type="text" id="desc" name="desc" value={formData.desc} onChange={handleChange} placeholder="something about hostel"/>
+        <input type="text" id="desc" name="desc" required value={formData.desc} onChange={handleChange} placeholder="something about hostel"/>
 
         <label htmlFor="phone">Mobile No.</label>
-        <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} placeholder="1234567890"/>
+        <input type="tel" id="phone" name="phone" required value={formData.phone} onChange={handleChange} placeholder="1234567890"/>
 
         {/* Email Input */}
         <label htmlFor="email">Email</label>
-        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="example@email.com"/>
+        <input type="email" id="email" name="email" required value={formData.email} onChange={handleChange} placeholder="example@email.com"/>
 
         <label htmlFor="gender">Gender</label>
-        <select name="gender" id="gender" value={formData.gender} onChange={handleChange}> <option value="" disabled>Choose Gender</option> <option value="Male">Male</option> <option value="Female">Female</option> </select>
+        <select name="gender" id="gender" value={formData.gender} required onChange={handleChange}> <option value="" disabled>Choose Gender</option> <option value="Male">Male</option> <option value="Female">Female</option> </select>
 
         {/* Room Type Select */}
         <label htmlFor="roomType">Room Type</label>
-        <select id="roomType" name="roomType" value={formData.roomType} onChange={handleChange}> <option value="" disabled>Select Room Type</option> <option value="single">Single Room</option> <option value="double">Double Sharing</option> <option value="dorm">Dormitory Bed</option></select>
+        <select id="roomType" name="roomType" value={formData.roomType} required onChange={handleChange}> <option value="" disabled>Select Room Type</option> <option value="single">Single Room</option> <option value="double">Double Sharing</option> <option value="dorm">Dormitory Bed</option></select>
         
         <label htmlFor="price">Price</label>
-        <input type="number" id="price" name="price" value={formData.price} onChange={handleChange}/>
+        <input type="number" id="price" name="price" value={formData.price} required onChange={handleChange}/>
 
         <label htmlFor="noOfRooms">No. of Available Rooms</label>
-        <input type="number" id="noOfRooms" name="noOfRooms" value={formData.noOfRooms} onChange={handleChange} placeholder="no of rooms available in hostel"/>
+        <input type="number" id="noOfRooms" name="noOfRooms" required value={formData.noOfRooms} onChange={handleChange} placeholder="no of rooms available in hostel"/>
 
         <label htmlFor="address">Address</label>
-        <input type="text" id="address" name="address" value={formData.address} onChange={handleChange} placeholder="Your hostel address..."/>
+        <input type="text" id="address" name="address" required value={formData.address} onChange={handleChange} placeholder="Your hostel address..."/>
 
         <label htmlFor="city">City</label>
-        <input type="text" id="city" name="city" value={formData.city} onChange={handleChange} placeholder="Bharatpur"/>
+        <input type="text" id="city" name="city" required value={formData.city} onChange={handleChange} placeholder="Bharatpur"/>
 
         <label htmlFor="state">State</label>
-        <input type="text" id="state" name="state" value={formData.state} onChange={handleChange} placeholder="Rajasthan"/>
+        <input type="text" id="state" name="state" required value={formData.state} onChange={handleChange} placeholder="Rajasthan"/>
 
         <label htmlFor="pinCode">Pin Code</label>
         <input type="text" id="pinCode" name='pinCode' value={formData.pinCode} onChange={handleChange} placeholder="321406"/>

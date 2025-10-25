@@ -3,7 +3,7 @@ import asyncHandler from "../utils/asyncHandler.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { Hostel } from "../models/hostel.model.js"
 
-const MAX_DISTANCE_METERS= 10000
+const MAX_DISTANCE_METERS= 100000
 const searchHostels= asyncHandler(async (req,res)=>{
     const {longitude,latitude}= req.body
     if(!latitude || !longitude) throw new ApiError(400,"Both latitude and longitude are required")
@@ -39,6 +39,7 @@ const searchHostels= asyncHandler(async (req,res)=>{
                 pinCode:1,
                 image:1,
                 rating:1,
+                location:1,
                 reviewsCount:1,
                 distance: { $round: ["$distance",2]}
             }
