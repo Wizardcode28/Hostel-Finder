@@ -9,24 +9,23 @@ const Student = () => {
   const handleViewDetails= (hostelData)=>{
     navigate('/hostelDetails', { state: { hostel: hostelData } })
   }
-  // State to hold the student's location and any other relevant data
+  
   const [studentData, setStudentData] = useState({
-    longitude: 0,
-    latitude: 0
-    // Add other fields needed for a student profile later (e.g., studentID)
+    latitude:0,
+    longitude:0
   });
-  const [hostelResults, sethostelResults] = useState([])
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchPerformed, setSearchPerformed] = useState(false);
 
-  // Function to handle getting the current location from the browser
+  const [hostelResults, sethostelResults] = useState([])
+  const [isLocationCapturing, setIsLocationCapturing] = useState(false)
+  const [searchPerformed, setSearchPerformed] = useState(false);
+  const [isSearchLoading, setIsSearchLoading] = useState(false);    
+
   const handleGetLocation = () => {
     if (!navigator.geolocation) {
       alert("Geolocation is not supported by your browser. Please ensure your browser is up to date.");
       return;
     }
-
-    setIsLoading(true);
+    setIsLocationCapturing(true);
     alert("Please allow access to your current location to find nearby hostels.");
 
     navigator.geolocation.getCurrentPosition(
@@ -40,13 +39,12 @@ const Student = () => {
           longitude: parseFloat(lng.toFixed(6)),
           latitude: parseFloat(lat.toFixed(6)),
         }));
-        
-        setIsLoading(false);
+        setIsLocationCapturing(false);
         console.log(`Student Location Captured: Lat=${lat}, Lng=${lng}`);
       },
       // Error Callback
       (error) => {
-        setIsLoading(false);
+        setIsLocationCapturing(false);
         let message = "Failed to get location.";
         if (error.code === error.PERMISSION_DENIED) {
           message = "Location access denied. Cannot search for hostels without your location.";
@@ -59,21 +57,27 @@ const Student = () => {
       {
         enableHighAccuracy: true,
         timeout: 15000,
-        maximumAge: 10000 
+        maximumAge: 0
       }
     );
   };
 
   const handleSearch = async (e) => {
    e.preventDefault()
-   if(!studentData.longitude || !studentData.latitude){
+   setSearchPerformed(true)
+   setIsSearchLoading(true);
+   
+   if(studentData.longitude===0 || studentData.latitude===0){
     alert("Please capture your location first")
+    setIsSearchLoading(false);
     return
    }
+
    const studentPayload={
-    longitude: parseFloat(studentData.longitude),
-    latitude: parseFloat(studentData.latitude)
+    longitude: studentData.longitude,
+    latitude: studentData.latitude
    }
+
     try {
       const response= await fetch(`${import.meta.env.VITE_API_BASE_URL}/hostel/search`,{
         method:"POST",
@@ -89,10 +93,12 @@ const Student = () => {
       }
     } catch (error) {
       console.error("Network or parsing error during search:", error);
-      alert("A network error occurred during the search. Check the console.")
+      alert("Unable to connect to server. Please try again.")
+      sethostelResults([])
     }
     finally{
-      setIsLoading(false)
+      setIsSearchLoading(false);
+      setStudentData({latitude:0,longitude:0})
     }
   };
 
@@ -100,7 +106,7 @@ const renderResults = () => {
     // Determine if the search found anything
     const hasResults = hostelResults.length > 0;
     
-    if (isLoading) return <div className='result-loading'>Searching for nearest hostels... 🏃‍♂️</div>;
+    if (isSearchLoading) return <div className='result-loading'>Searching for nearest hostels... 🏃‍♂️</div>;
     if (searchPerformed && !hasResults)  return <div className="result-no-match">😢 No hostels found within the search radius. Try adjusting your search preferences later!</div>;
 
     if (hasResults) {
@@ -117,7 +123,6 @@ const renderResults = () => {
                     <div key={hostel._id} className="hostel-card-improved">
                         
                         <div className="hostel-image-placeholder">
-                            {/* In a real app, use <img src={hostel.image} /> */}
                             { hostel.image? <img src={hostel.image} alt="" />:"🏠"}
                         </div>
 
@@ -132,7 +137,6 @@ const renderResults = () => {
                                 {hostel.desc.substring(0, 70)}...
                             </p>
 
-                            {/* Key Features / Amenities */}
                             <div className="hostel-amenities-list">
                                 <span className="amenity-tag">{hostel.gender}</span>
                                 <span className="amenity-tag">{hostel.roomType}</span>
@@ -140,7 +144,6 @@ const renderResults = () => {
                             </div>
                         </div>
 
-                        {/* RIGHT SECTION: Price, Distance, & Action */}
                         <div className="hostel-summary-info">
                             <div className="distance-block">
                                 <span className="distance-label">Distance</span>
@@ -187,7 +190,7 @@ const renderResults = () => {
               <p>
                 Status: {studentData.latitude
                   ? `Location Found (Lat: ${studentData.latitude}, Lng: ${studentData.longitude})`
-                  : isLoading
+                  : isLocationCapturing
                   ? "Searching..."
                   : "Location not captured yet."
                 }
@@ -197,18 +200,18 @@ const renderResults = () => {
             <button 
               type="button" 
               onClick={handleGetLocation}
-              disabled={isLoading}
+              disabled={isLocationCapturing}
               className="location-btn"
             >
-              {isLoading ? "Capturing Location..." : "Share My Current Location 📍"}
+              {isLocationCapturing ? "Capturing Location..." : "Share My Current Location 📍"}
             </button>
             
             <button 
               type="submit" 
-              disabled={!studentData.latitude || isLoading}
+              disabled={!studentData.latitude || isLocationCapturing}
               className="search-btn"
             >
-              Start Hostel Search
+              {isSearchLoading ? "Searching..." : "Start Hostel Search"}
             </button>
           </form>
           <br />

@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";  
   
 const geocodeAddress = asyncHandler(async (req,res)=>{
+    if(!req.user) throw new ApiError(401,"First owner authentication is required")
     const {address,city,state,pinCode}= req.body
     const fullAddress=`${address}, ${city}, ${state},${pinCode || ''}`
     // encoding query since url can only contains special keywords like /,?,=,_,-

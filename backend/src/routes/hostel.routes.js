@@ -10,7 +10,7 @@ router.route('/').get((req,res)=>{
 })
 router.route("/register").post(verifyJWT,registerHostel)
 router.route("/search").post(searchHostels)
-router.route("/encode").post(geocodeAddress)
+router.route("/encode").post(verifyJWT,geocodeAddress)
 router.route('/my-hostel').get(verifyJWT,getHostel)
 
 export default router

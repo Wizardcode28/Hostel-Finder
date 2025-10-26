@@ -17,7 +17,8 @@ const Dashboard = () => {
             // If no token, redirect to login (Unauthenticated state)
             setFetchError("User not logged in. Redirecting to login.");
             setIsLoading(false);
-            setTimeout(() => navigate('/login'), 1500);
+            navigate('/login')
+            // setTimeout(() => navigate('/login'), 500);
             return;
         }
 
