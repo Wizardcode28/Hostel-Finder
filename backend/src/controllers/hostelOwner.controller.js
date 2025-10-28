@@ -98,6 +98,8 @@ const logOutHostelOwner= asyncHandler (async (req,res)=>{
 
     res
     .status(200)
+    .clearCookie("accessToken",options)
+    .clearCookie("refreshToken",options)
     .json(new ApiResponse(200,{},"Hostel owner logged out"))
 })
 
